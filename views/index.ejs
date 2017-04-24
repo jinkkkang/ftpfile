@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= user %>FTP查询切换</title>
+<% include fun %>
+<style>
+#but1{
+margin-top:100px;
+margin-left:63%;
+}
+#but2{
+margin-top:120px;
+margin-left:63%;
+}
+#but3{
+margin-top:140px;
+margin-left:63%;
+}
+#but4{
+margin-top:145px;
+margin-left:63%;
+}
+</style>
+ 
+<body>
+<h1  style="text-align: center"><%= user%></h1>
+<div class="btn-group container" style="text-align: center">
+    <form action="/ftp" method="get">
+     <button class="btn btn-default" type="submit" id="but1">
+      城市区县FTP目录查询切换
+    </button>
+     </form>
+    <form action="/replace" method="get">
+     <button class="btn btn-default" type="submit" id="but2">
+      城市区县文件的批量替换
+    </button>
+     </form>
+         <form action="/svn" method="get">
+     <button class="btn btn-default" type="submit" id="but3">
+      SVN提交失败
+    </button>
+     </form>
+       <form action="/logout" method="get">
+     <button class="btn btn-danger" type="submit" id="but4">
+      退出登录
+    </button>
+     </form>
+</div>
+
+  </body>
+</html>
+

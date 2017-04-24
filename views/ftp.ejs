@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<% include fun %>
+<title><%= user %></title>
+    <script type="text/javascript">
+     function sendinfo(){
+     	var name = document.getElementById("name").innerHTML;
+ 	    $.get("/look", {
+        user: name
+    }, function(data, status) {
+        if (data.sta == "yes") {
+            $('#title').text(name + "你的FTP目录是")
+            $('#info').text(data.dir)
+            $('#show').modal('show');
+        }else{
+            $('#title').text("ERROR");
+            $('#info').text("查询错误");
+            $('#show').modal('show');
+        }
+        
+    });
+     }
+      function qiehuan(){
+            $('#titleq').text("请选择你要切换的城市");
+            $('#infoq').text("选择城市")
+            $('#qie').modal('show');
+     }
+
+     function showsure(){
+      var name = document.getElementById("name").innerHTML;
+      var newcity = $("#chcity").val();
+      $('#qie').modal('hide');
+      $('#titles').text("确定要切换用户的目录吗");
+      $('#infos').text("将FTP目录切换至" + newcity );
+      $('#sure').modal('show');
+     }
+
+     function change(){
+      var nname = document.getElementById("name").innerHTML;
+      var ncity =  $("#chcity").val();
+      $.get("/change", {
+        user: nname,
+        ncity: ncity
+    }, function(data, status) {
+               if (data.sta == "yes") {
+            $('#sure').modal('hide');
+            $('#title').text("修改用户目录至" + ncity);
+            $('#info').text("切换目录成功")
+            $('#show').modal('show');
+        }else{
+            $('#sure').modal('hide');
+            $('#title').text("切换目录至" + ncity);
+            $('#info').text("切换目录失败");
+            $('#show').modal('show');
+        } 
+    });
+     }
+    </script>
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+ <div class="container" style="text-align: center">
+  <h1 id="name"><%= user%></h1>
+<br>
+<br>
+   <button type="button" class="btn  btn btn-warning btn-lg" onclick="sendinfo()">查询FTP目录</button>
+   <button type="button" class="btn  btn btn-warning btn-lg" onclick="qiehuan()">切换FTP目录</button>
+</dvi>
+     <!--显示框-->
+      <div class="modal fade" tabindex="-1" role="dialog" id="show">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="title"></h4>
+            </div>
+            <div class="modal-body">
+              <h2 id="info"></h2>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+           <!-- 切换FTP目录-->
+            <div class="modal fade" tabindex="-1" role="dialog" id="qie">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="titleq"></h4>
+            </div>
+            <div class="modal-body">
+              <h2 id="infoq"> </h2>
+              <select id="chcity">
+              <% city.map(function(data){ %>
+              <option><%= data %></option>
+
+              <% }) %>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-warning" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-warning" onclick="showsure()">确定</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+       <!-- 确认框 -->
+      <div class="modal fade" tabindex="-1" role="dialog" id="sure">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="titles"></h4>
+      </div>
+      <div class="modal-body">
+        <h2 id="infos"></h2>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-warning" onclick="change()">确定</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+  </body>
+</html>

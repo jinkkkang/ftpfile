@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>登录</title>
+    <style>
+    #nae
+    {
+    margin-left: 50%;
+    margin-top: 20%;
+    background: #ED9B28;
+    }
+    #bu{
+   margin-left:29%;
+  }
+    </style>
+    <% include fun %>
+  <body>
+<form class="form-horizontal" method="post", action="/login">
+  <div class="form-group">
+    <div class="col-sm-10">
+  <select name="username" id="nae">
+    <option>zhaoxiao</option>
+    <option>liuxuyang</option>
+    <option>kongxiangyu</option>
+    <option>zhaodanni</option>
+    <option>changwenli</option>
+    <option>tuzhengping</option>
+    <option>dichaofeng</option>
+    <option>wangqiyin</option>
+</select>  
+  </div>
+  </div>
+  <div class="form-group" id="bu">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-warning">DENG LU</button>
+    </div>
+  </div>
+</form>
+  </body>
+</html>

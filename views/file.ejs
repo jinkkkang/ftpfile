@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<% include fun %>
+    <script type="text/javascript">
+    function showsure(){
+      if ($('#cont').val().replace(/(^s*)|(s*$)/g, "").length ==0 || $('#cont').val().length == 0){
+          $('#title').text("空的");
+          $('#info').text("请填入要替换的源文件");
+          $('#show').modal('show');
+      }else{
+          var name = document.getElementById("name").innerHTML;
+          $('#titles').text(name + " 你确定替换文件吗");
+          $('#infos').text("检查好再替换，弄错了别/(ㄒoㄒ)/~~");
+          $('#sure').modal('show');
+      }
+    }
+    function tihuan(){
+      var tic = [];
+      $('#sure').modal('hide');
+      var cont = $("#cont").val();
+      $('input[type="checkbox"]:checked').each(function() {
+           tic.push($(this).val());
+        });
+       $.get("/tihuan", {
+        file: cont,
+        ncity: tic
+    }, function(data, status) {
+      console.log(status);
+             if (data.sta == "yes") {
+            $('#sure').modal('hide');
+            $('#title').text("替换文件");
+            $('#info').text("成功啦")
+            $('#show').modal('show');
+        }
+            if (data.sta == "not")  {
+            $('#sure').modal('hide');
+            $('#title').text("输入错误");
+            $('#info').text(data.con + "不存在");
+            $('#show').modal('show');
+        }
+            if (data.sta == "err")  {
+            $('#sure').modal('hide');
+            $('#title').text("系统错误,看见这个错误，后台已崩溃，联系运维吧");
+            $('#info').text(data.con);
+            $('#show').modal('show');
+        } 
+    });
+    }
+        function allsel(){
+        var checkboxs = document.getElementsByName('city');
+        for (var i = 0; i < checkboxs.length; i++) {
+            var e = checkboxs[i];
+            e.checked = !e.checked;
+        }
+    }
+    </script>
+  </head>
+  <body>
+<br>
+<br>
+<h1 id="name" style="text-align: center"><%= user%></h1>
+<div class="container" style="text-align: center">
+<button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#usehelp" aria-expanded="false" aria-controls="collapseExample">
+ 城市区县文件的批量替换--使用方法
+</button>
+<div class="collapse" id="usehelp">
+  <div class="well lead">
+   用北京下的statics/city/video_list目录下的所有文件替换其他地区的相应目录下的文件,填入<br>
+  /home/wwwroot/beijing/statics/city/video_list/* <br>
+   用北京下的statics/show_pic/css/css.css 替换其他地区的相应目录下的css.css文件，填入<br>
+   /home/wwwroot/beijing/statics/show_pic/css/css.css<br>
+   <h3>请注意将源文件城市的勾选取消掉</h3>
+  </div>
+</div><textarea type="text" id="cont" class="form-control" rows="9" aria-describedby="helpBlock" placeholder="在这里输入要替换的源文件绝对路径,一行一个">
+</textarea>
+  <div id="chcity">
+  <% city.map(function(data){ %>
+  <input type="checkbox" name="city"  value=<%= data %> checked="true"><%= data%>
+  <br>
+
+  <% }) %>
+  </div>
+</div>
+  <br>
+  <br>
+      <div class="container" style="text-align: center">
+            <button class="btn btn-lg btn-default" onclick="allsel()" >全选/反选</button>
+            <button class="btn btn-lg btn-warning" onclick="showsure()" >替 换</button>
+        </div>
+    </div>  
+   <!--显示框-->
+      <div class="modal fade" tabindex="-1" role="dialog" id="show">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="title"></h4>
+            </div>
+            <div class="modal-body">
+              <h2 id="info"></h2>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+       <!-- 确认框 -->
+      <div class="modal fade" tabindex="-1" role="dialog" id="sure">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="titles"></h4>
+      </div>
+      <div class="modal-body">
+        <h2 id="infos"></h2>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-warning" onclick="tihuan()">确定</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+  </body>
+</html>
