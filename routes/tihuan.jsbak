@@ -1,0 +1,39 @@
+var express = require('express');
+var router = express.Router();
+var fs = require("fs");
+var path = require('path');
+const execSync = require('child_process').execSync;
+
+function make(data){
+	if(data.charAt(data.length-1) == "*"){
+		return data.replace(/\*/g,"");
+	}else{
+		return data;
+	}
+}
+
+
+router.get('/', function(req, res, next) {
+	var file = req.query.file.split('\n');
+	var city = req.query.ncity;
+	for (var i = 0; i < city.length; i++) {
+                var count = 0;
+		file.map(function(data){
+                        console.log(make(data));
+			if(fs.existsSync(make(data))){
+		         var cmd = 'cp -arf  ' + data + '  /home/wwwroot/' + city[i] + make(data).replace(/\/home\/wwwroot\/[a-z]+/g,"")
+                         console.log(cmd);
+                         execSync(cmd);
+                         count++;
+                        if( count == file.length * city.length ){
+			    res.json({'sta':'yes'});
+			    }        
+		       }else{
+			 res.json({'sta':'not','con':data});
+			}
+
+		})
+   }
+})
+module.exports = router;
+

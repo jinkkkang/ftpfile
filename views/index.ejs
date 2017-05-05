@@ -1,45 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title><%= user %>FTP查询切换</title>
-<% include fun %>
+<title>主页</title>
 <style>
-#but1{
+#menu{
 margin-top:100px;
-margin-left:63%;
-}
-#but2{
-margin-top:120px;
-margin-left:63%;
-}
-#but3{
-margin-top:140px;
-margin-left:63%;
-}
-#but4{
-margin-top:145px;
-margin-left:63%;
 }
 </style>
- 
+<% include fun %> 
 <body>
 <h1  style="text-align: center"><%= user%></h1>
+<div class="btn-group btn-group-justified" role="group" aria-label="..." id="menu">
 <div class="btn-group container" style="text-align: center">
     <form action="/ftp" method="get">
      <button class="btn btn-default" type="submit" id="but1">
-      城市区县FTP目录查询切换
+      FTP查询切换
     </button>
      </form>
+</div>
+<div class="btn-group container" style="text-align: center">
     <form action="/replace" method="get">
      <button class="btn btn-default" type="submit" id="but2">
-      城市区县文件的批量替换
+      城市区县批量替换
     </button>
      </form>
-         <form action="/svn" method="get">
-     <button class="btn btn-default" type="submit" id="but3">
-      SVN提交失败
-    </button>
-     </form>
+</div>
+</div>
+<div class="container" style="text-align: center;margin-top:200px ">
        <form action="/logout" method="get">
      <button class="btn btn-danger" type="submit" id="but4">
       退出登录

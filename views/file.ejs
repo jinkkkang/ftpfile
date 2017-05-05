@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>批量替换</title>
 <% include fun %>
     <script type="text/javascript">
     function showsure(){
@@ -59,6 +60,7 @@
   <body>
 <br>
 <br>
+ <a  href="" onclick="history.go(-1)" style="margin-left:30px">返回上一级</a>
 <h1 id="name" style="text-align: center"><%= user%></h1>
 <div class="container" style="text-align: center">
 <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#usehelp" aria-expanded="false" aria-controls="collapseExample">
@@ -74,17 +76,19 @@
   </div>
 </div><textarea type="text" id="cont" class="form-control" rows="9" aria-describedby="helpBlock" placeholder="在这里输入要替换的源文件绝对路径,一行一个">
 </textarea>
-  <div id="chcity">
+</div>
+ <div class="container">
+  <div class="row">
   <% city.map(function(data){ %>
-  <input type="checkbox" name="city"  value=<%= data %> checked="true"><%= data%>
-  <br>
-
+      <label for=<%= data %> class="col-lg-2">
+	<input  type="checkbox" name="city" id=<%= data %>  value=<%= data %> checked="true"><%= data%>
+      </label>
   <% }) %>
-  </div>
+   </div>
 </div>
   <br>
   <br>
-      <div class="container" style="text-align: center">
+      <div class="container" style="text-align: center"> 
             <button class="btn btn-lg btn-default" onclick="allsel()" >全选/反选</button>
             <button class="btn btn-lg btn-warning" onclick="showsure()" >替 换</button>
         </div>

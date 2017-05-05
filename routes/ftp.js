@@ -5,6 +5,9 @@ var path = require('path');
 //var city = JSON.parse(fs.readFileSync(path.join(__dirname + '/../'+ 'city.json'), 'utf-8'));
 
 router.get('/', function(req, res, next) {
+    if(!req.session.user){
+	res.redirect('/')
+    }
     var city = fs.readdirSync("/home/wwwroot");
     var user = req.session.user;
     res.render('ftp',{ user: user,city:city});

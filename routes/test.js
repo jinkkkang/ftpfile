@@ -1,6 +1,2 @@
-var fs = require("fs");
-if(fs.existsSync('/home/wwwroot/beijing/phpcms/templates/area/content/')){
-console.log('yes');
-}else{
-console.log('no');
-}
+const execSync = require('child_process').execSync;
+execSync('cmd');

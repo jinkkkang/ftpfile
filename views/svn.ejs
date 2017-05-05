@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>   
+  <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <title>SVN错误处理</title>
+    <% include fun %>
+    <script type="text/javascript">
+    $(document).ready(function(){
+          $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+       $("#confile").hide();
+      $("#lock").click(function(){
+        $("#confile").hide();
+      });
+      $("#confict").click(function(){
+        $("#confile").show();
+      });
+  });
+    function make(){
+      
+    }
+    </script>
+  <body>
+  <form>
+  <a href="" onclick="history.go(-1)" style="margin-left:30px">返回上一级</a>
+    <div class="form-group" style="margin-top:200px">
+<div class="container" >
+<div class="row">
+    <label for="s1" class="col-lg-3">
+        <input name="s1" type="radio" id="s1">大明宫测试 svn 地址 svn://47.93.160.227/zhss
+    </label>
+    <label for="s2" class="col-lg-3">
+        <input name="s1" type="radio" id="s2">大明宫后台测试 svn 地址 svn://47.93.120.41/dmgapi
+    </label>
+    <label for="s3" class="col-lg-3">
+        <input name="s1" type="radio" id="s3">盛世公会测试 svn 地址 svn://47.93.158.221/ssgh
+    </label>
+    <label for="s4" class="col-lg-3">
+        <input name="s1" type="radio" id="s4">盛世公会后台svn 地址 svn://47.93.120.41/ssghyaf
+    </label>
+</div>
+</div>
+  </div>
+  <div class="text-center">  
+  <p class="text-center lead">请选择SVN同步错误类型</p>
+<input type="radio" name="s" id="lock" data-toggle="tooltip" data-placement="left" title="出现svn locked 时勾选此项">目录被锁
+<input type="radio" name="s" id="confict" data-toggle="tooltip" data-placement="right" title="出现如 confict discovered in /home/path/filename 时，勾选此项，在输入框内填写冲突文件的绝对路径">文件冲突
+<br>
+ </div>
+ <div ng-app="">
+ <input class="form-control" type="text" id="confile" ng-model="file" placeholder="在这里填写冲入文件的绝对路径">
+ <h2 class="text-center">{{ file }}</h2>
+</div>
+ <br>
+ <br>
+  <div>
+  <button type="button" class="btn btn-warning center-block" onclick="make()">提交处理</button>
+  </div>
+  </form>
+  </body>
+</html>
